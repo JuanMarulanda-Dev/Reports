@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('/expense_report', 'ExpenseReportController');
+
+
+//Sessión Auth
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
