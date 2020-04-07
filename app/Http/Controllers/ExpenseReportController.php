@@ -12,7 +12,7 @@ class ExpenseReportController extends Controller
      *
      * @return void
      */
-    public function __constructor()
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -86,7 +86,13 @@ class ExpenseReportController extends Controller
      */
     public function edit(ExpenseReport $expenseReport)
     {
-        //
+        return view('ExpenseReport.createEdit', [
+            'titlePage' => 'Edit Expense Report',
+            'actionbutton' => 'Actualzar',
+            'urlAction' => "/expense_report/$expenseReport->id",
+            'action' => '1', //0 = POST, 1 = PUT
+            'report' => $expenseReport
+        ]);
     }
 
     /**
@@ -98,7 +104,16 @@ class ExpenseReportController extends Controller
      */
     public function update(Request $request, ExpenseReport $expenseReport)
     {
-        //
+        $valiData = $request->validate([
+            'title' => "required|min:5|max:60",
+            'description' => "required|min:5|max:60"
+        ]);
+
+        $expenseReport->title = $valiData['title'];
+        $expenseReport->description = $valiData['description'];
+        $expenseReport->save();
+
+        return redirect('/expense_report');
     }
 
     /**
