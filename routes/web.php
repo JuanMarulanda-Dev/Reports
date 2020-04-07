@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::resource('/expense_report', 'ExpenseReportController');
 
+Route::resource('/expenses', 'ExpenseController');
 
 //Sessión Auth
 

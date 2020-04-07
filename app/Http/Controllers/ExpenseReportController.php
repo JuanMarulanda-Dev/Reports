@@ -75,7 +75,9 @@ class ExpenseReportController extends Controller
      */
     public function show(ExpenseReport $expenseReport)
     {
-        //
+        return view('ExpenseReport.show', [
+            'report' => $expenseReport
+        ]);
     }
 
     /**

@@ -29,7 +29,7 @@
                         <tbody>
                             @foreach ($reports as $report)
                                 <tr>
-                                    <td><a href="#">{{ $report->title }}</a></td>
+                                    <td><a href="/expense_report/{{ $report->id }}">{{ $report->title }}</a></td>
                                     <td>{{ $report->description }}</td>
                                     <td>{{ $report->created_at }}</td>
                                     <td>{{ $report->updated_at }}</td>
