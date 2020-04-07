@@ -124,6 +124,8 @@ class ExpenseReportController extends Controller
      */
     public function destroy(ExpenseReport $expenseReport)
     {
-        //
+        $expenseReport->delete();
+
+        return json_encode(true);
     }
 }

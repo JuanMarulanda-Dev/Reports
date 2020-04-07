@@ -34,8 +34,8 @@
                                     <td>{{ $report->created_at }}</td>
                                     <td>{{ $report->updated_at }}</td>
                                     <td>
-                                        <a href="/expense_report/{{ $report->id }}/edit">Edit</a>
-                                        <a href="/expense_report/{{ $report->id }}/delete">Delete</a><!-- Confirm delete with js -->
+                                        <a href="/expense_report/{{ $report->id }}/edit">Edit</a> |
+                                        <a class="confirmD" data-id="{{ $report->id }}" href="#">Delete</a><!-- Confirm delete with js -->
                                     </td>
                                 </tr>
                             @endforeach
@@ -46,9 +46,35 @@
         </div>
     </div>
 </div>
-
+ 
 <script>
-    $('.alert').alert();
+    $(document).ready(() => {
+        let id = 0;
+        $('.confirmD').on('click', (event) => {
+            event.preventDefault();
+            id = $(event.target).data('id');
+            $('#ConfirmDelete').modal('show');
+        });
+
+        $('#confirm').submit((event) => {
+            event.preventDefault();
+            $.ajax({
+                type: "DELETE",
+                url: `/expense_report/${id}`,
+                data: $('#confirm').serialize(),
+                dataType: "json",
+                success: function (response) {
+                    if(response){
+                        $('.confirmD').modal('hide');
+                        setTimeout(() => {window.location.href = "/expense_report"}, 2000);
+                    }
+                }
+            });
+        });
+
+    });
 </script>
+
+@include('ExpenseReport.confirmDelete')
 
 @endsection
